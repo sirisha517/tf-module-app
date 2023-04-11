@@ -8,7 +8,7 @@ data "template_file" "userdata" {
   template = file("${path.module}/userdata.sh")
 
   vars = {
-    componnet = var.component
+    component = var.component
     env       = var.env
   }
 }
