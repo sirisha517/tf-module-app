@@ -2,7 +2,9 @@ resource "aws_launch_template" "main" {
   name = "${var.component}-${var.env}"
 
   image_id = data.aws_ami.ami.id
-
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
   instance_market_options {
     market_type = "spot"
   }
