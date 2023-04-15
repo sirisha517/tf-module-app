@@ -41,6 +41,7 @@ resource "aws_autoscaling_group" "main" {
     value               = "${var.component}-${var.env}"
   }
 }
+
 resource "aws_security_group" "main" {
   name        = "${var.component}-${var.env}"
   description = "${var.component}-${var.env}"
@@ -52,6 +53,13 @@ resource "aws_security_group" "main" {
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = var.bastion_cidr
+  }
+  ingress {
+    description      = "APP"
+    from_port        = var.port
+    to_port          = var.port
+    protocol         = "tcp"
+    cidr_blocks      = var.allow_app_to
   }
 
   egress {
