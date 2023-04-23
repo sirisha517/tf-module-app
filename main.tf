@@ -85,12 +85,13 @@ resource "aws_lb_target_group" "main" {
     { Name = "${var.component}-${var.env}" }
   )
 }
+
 resource "aws_route53_record" "main" {
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = local.dns_name
   type    = "CNAME"
   ttl     = 30
-  records = [var.alb_dns_domain]
+  records = [var.alb_dns_name]
 }
 
 resource "aws_lb_listener_rule" "listener_rule" {
@@ -108,3 +109,4 @@ resource "aws_lb_listener_rule" "listener_rule" {
     }
   }
 }
+
