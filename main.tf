@@ -28,16 +28,18 @@ resource "aws_autoscaling_group" "main" {
   min_size            = var.min_size
   vpc_zone_identifier = var.subnets
   target_group_arns   = [aws_lb_target_group.main.arn]
+
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"
   }
   tag {
     key                 = "Name"
-    propagate_at_launch = false
+    propagate_at_launch = true
     value               = "${var.component}-${var.env}"
   }
 }
+
 resource "aws_security_group" "main" {
   name        = "${var.component}-${var.env}"
   description = "${var.component}-${var.env}"
