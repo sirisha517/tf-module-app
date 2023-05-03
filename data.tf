@@ -1,6 +1,6 @@
 data "aws_ami" "ami" {
   most_recent      = true
-  name_regex       = "devops-prac-with-ansible" //AMI NAME
+  name_regex       = "devops-practice-with-ansible" //AMI NAME
   owners           = ["self"] //OWNER
 }
 
