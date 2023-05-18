@@ -87,6 +87,17 @@ resource "aws_security_group" "main" {
     { Name = "${var.component}-${var.env}" }
   )
 }
+resource "aws_autoscaling_policy" "asg-cpu-rule" {
+  name  = "CPULoadDetect"
+  autoscaling_group_name = aws_autoscaling_group.main.name
+  Policy_type = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization" //Metric Type
+      }
+    target_value = 40.0 //Target value
+    }
+}
 
 resource "aws_lb_target_group" "main" {
   name     = "${var.component}-${var.env}"
